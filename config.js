@@ -8,8 +8,8 @@ const CONFIG = {
   tagline: "Located in Acushnet, MA",
   foundedYear: "1950",
   
-  // Google Review direct link provided by user
-  googleReviewUrl: "https://www.google.com/search?q=gibbs+roofing+and+remodeling&rlz=1C1RXQR_enUS1129US1129&oq=&gs_lcrp=EgZjaHJvbWUqCQgDECMYJxjqAjIJCAAQIxgnGOoCMgkIARAjGCcY6gIyDwgCEC4YJxivARjHARjqAjIJCAMQIxgnGOoCMgwIBBAjGCcY6gIYrQYyDAgFECMYJxjqAhitBjIPCAYQABhCGLQCGOoCGNsFMg8IBxAAGEIYtAIY6gIY2wXSAQo3MzkxNjVqMGo3qAIIsAIB8QUpaeNUchXVpQ&sourceid=chrome&source=chrome.ob&ie=UTF-8#lrd=0x89e4e5d68ce37a53:0x9f9a291c8092f71d,3,,,,",
+  // Official Direct Google Review Modal Link (Forces the 5-star review dialog to auto-pop up on mobile & desktop)
+  googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJU3rjjNbl5IkRHfeCgBypmp8",
 
   // Email destination for private feedback (1-4 stars)
   targetEmail: "Dylanonline12@yahoo.com",
