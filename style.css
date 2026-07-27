@@ -1,0 +1,505 @@
+/* ==========================================================================
+   Gibbs Roofing & Remodeling - Review Gate Stylesheet
+   ========================================================================== */
+
+:root {
+  --color-navy-dark: #0F1E36;
+  --color-navy-header: #162840;
+  --color-brand-blue: #006699;
+  --color-brand-blue-hover: #004F77;
+  --color-gold: #F59E0B;
+  --color-gold-hover: #D97706;
+  
+  --color-bg-page: #F1F5F9;
+  --color-card-bg: #FFFFFF;
+  
+  --color-text-main: #0F172A;
+  --color-text-muted: #475569;
+  --color-text-light: #94A3B8;
+  
+  --color-border: #E2E8F0;
+  --color-success: #10B981;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 25px -5px rgba(15, 30, 54, 0.1), 0 8px 10px -6px rgba(15, 30, 54, 0.05);
+
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--color-bg-page);
+  color: var(--color-text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ==========================================================================
+   Top Announcement Header
+   ========================================================================== */
+
+.top-announcement {
+  background-color: var(--color-navy-dark);
+  color: #FFFFFF;
+  padding: 10px 0;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.announcement-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.promo-badge {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0.3px;
+}
+
+.phone-link {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  transition: opacity 0.2s;
+}
+
+.phone-link:hover {
+  opacity: 0.85;
+}
+
+.phone-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ==========================================================================
+   Brand Navbar
+   ========================================================================== */
+
+.brand-navbar {
+  background-color: var(--color-navy-header);
+  color: #FFFFFF;
+  padding: 18px 0;
+  box-shadow: var(--shadow-md);
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.brand-identity {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand-logo {
+  max-height: 55px;
+  width: auto;
+  object-fit: contain;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.slogan {
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #E2E8F0;
+}
+
+.location-tag {
+  font-size: 0.8rem;
+  color: #94A3B8;
+}
+
+.rating-badge {
+  text-align: right;
+}
+
+.stars-gold {
+  color: var(--color-gold);
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+}
+
+.rating-text {
+  font-size: 0.85rem;
+  color: #CBD5E1;
+}
+
+/* ==========================================================================
+   Main Review Gate Card Section
+   ========================================================================== */
+
+.review-gate-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 20px;
+}
+
+.card-container {
+  max-width: 650px;
+}
+
+.gate-card {
+  background: var(--color-card-bg);
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+}
+
+.step-hidden {
+  display: none !important;
+}
+
+.step-active {
+  display: block;
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.step-pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-brand-blue);
+  background-color: #E0F2FE;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-navy-dark);
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.card-subtitle {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Star Rating Widget
+   ========================================================================== */
+
+.star-rating-widget {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 30px 0 10px;
+}
+
+.star-btn {
+  background: none;
+  border: none;
+  font-size: 3.2rem;
+  color: #CBD5E1;
+  cursor: pointer;
+  transition: transform 0.15s ease, color 0.15s ease;
+  padding: 0 4px;
+  user-select: none;
+  line-height: 1;
+}
+
+.star-btn:hover,
+.star-btn:focus {
+  transform: scale(1.2);
+  outline: none;
+}
+
+.star-btn.active,
+.star-btn.hover-active {
+  color: var(--color-gold);
+  text-shadow: 0 2px 10px rgba(245, 158, 11, 0.4);
+}
+
+.rating-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  font-weight: 600;
+  padding: 0 10px;
+  margin-top: 5px;
+}
+
+/* ==========================================================================
+   Redirecting Loader View (5-Star Direct Transfer)
+   ========================================================================== */
+
+.celebration-icon {
+  font-size: 3.5rem;
+  margin-bottom: 10px;
+}
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #E2E8F0;
+  border-top-color: var(--color-brand-blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 30px auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.redirect-manual {
+  text-align: center;
+  margin-top: 20px;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   1-4 Star Feedback Form & Visual Hierarchy Buttons
+   ========================================================================== */
+
+.rating-summary-chip {
+  display: inline-block;
+  background-color: #FEF3C7;
+  color: #92400E;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 550px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-navy-dark);
+}
+
+.required {
+  color: #EF4444;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: #F8FAFC;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--color-brand-blue);
+  background-color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(0, 102, 153, 0.15);
+}
+
+/* Button Action Stack & Hierarchy Strategy */
+.action-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+/* EMPHASIZED PRIMARY BUTTON (Solid Roof Blue, Prominent Shadow, Large Target) */
+.btn-emphasized {
+  background-color: var(--color-brand-blue);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(0, 102, 153, 0.35);
+  font-size: 1.05rem;
+  width: 100%;
+}
+
+.btn-emphasized:hover {
+  background-color: var(--color-brand-blue-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 102, 153, 0.45);
+}
+
+.btn-emphasized:active {
+  transform: translateY(0);
+}
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.btn-secondary {
+  background-color: var(--color-navy-dark);
+  color: #FFFFFF;
+  margin-top: 15px;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-navy-header);
+}
+
+/* UNEMPHASIZED SECONDARY LINK (Muted text style, no fill, zero shadow, low contrast) */
+.unemphasized-wrapper {
+  text-align: center;
+  margin-top: 4px;
+}
+
+.link-unemphasized {
+  color: #64748B;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.link-unemphasized:hover {
+  color: var(--color-text-main);
+}
+
+/* ==========================================================================
+   Thank You Confirmation View
+   ========================================================================== */
+
+.check-icon-circle {
+  width: 70px;
+  height: 70px;
+  background-color: #D1FAE5;
+  color: var(--color-success);
+  font-size: 2.2rem;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.confirmation-details {
+  margin-top: 20px;
+}
+
+/* ==========================================================================
+   Site Footer
+   ========================================================================== */
+
+.site-footer {
+  background-color: var(--color-navy-dark);
+  color: #94A3B8;
+  padding: 25px 0;
+  text-align: center;
+  font-size: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-tagline {
+  color: #64748B;
+  font-size: 0.8rem;
+}

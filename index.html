@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rate Your Experience | Gibbs Roofing & Remodeling</title>
+
+  <!-- OpenGraph Metadata for Rich SMS & Social Links -->
+  <meta property="og:title" content="Rate Your Experience - Gibbs Roofing & Remodeling">
+  <meta property="og:description" content="Please take a moment to share your feedback with Gibbs Roofing & Remodeling.">
+  <meta property="og:image" content="assets/logo.png">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="assets/logo.png" type="image/png">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <header class="top-announcement">
+    <div class="container announcement-content">
+      <span class="promo-badge">$200 OFF Your Next Roof Replacement</span>
+      <a href="tel:5087481281" class="phone-link">
+        <svg class="phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        (508) 748-1281
+      </a>
+    </div>
+  </header>
+
+  <!-- Brand Navbar -->
+  <nav class="brand-navbar">
+    <div class="container navbar-content">
+      <div class="brand-identity">
+        <img src="assets/logo.png" alt="Gibbs Roofing & Remodeling Logo" class="brand-logo">
+        <div class="brand-text">
+          <span class="slogan">"Live under my roof"</span>
+          <span class="location-tag">Serving SE Massachusetts & Rhode Island • Est. 1950</span>
+        </div>
+      </div>
+      <div class="rating-badge">
+        <div class="stars-gold">★★★★★</div>
+        <span class="rating-text">4.8 Rating (100+ Reviews)</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Hero & Review Gate Section -->
+  <main class="review-gate-section">
+    <div class="container card-container">
+
+      <!-- STEP 1: Star Rating Prompt -->
+      <div id="step-rating" class="gate-card step-active">
+        <div class="card-header">
+          <span class="step-pill">Customer Feedback</span>
+          <h1 class="card-title">How would you rate your experience?</h1>
+          <p class="card-subtitle">Your satisfaction is our top priority at Gibbs Roofing & Remodeling. Please tap a star rating below.</p>
+        </div>
+
+        <!-- Star Rating Widget -->
+        <div class="star-rating-widget" id="star-widget">
+          <button type="button" class="star-btn" data-rating="1" aria-label="Rate 1 Star">★</button>
+          <button type="button" class="star-btn" data-rating="2" aria-label="Rate 2 Stars">★</button>
+          <button type="button" class="star-btn" data-rating="3" aria-label="Rate 3 Stars">★</button>
+          <button type="button" class="star-btn" data-rating="4" aria-label="Rate 4 Stars">★</button>
+          <button type="button" class="star-btn" data-rating="5" aria-label="Rate 5 Stars">★</button>
+        </div>
+        
+        <div class="rating-labels">
+          <span>Poor</span>
+          <span>Excellent</span>
+        </div>
+      </div>
+
+      <!-- STEP 2A: 5-Star Direct Transfer Notice (Auto-Redirecting) -->
+      <div id="step-redirecting" class="gate-card step-hidden">
+        <div class="card-header text-center">
+          <div class="celebration-icon">🎉</div>
+          <h2 class="card-title">Thank You for the 5-Star Rating!</h2>
+          <p class="card-subtitle">We are transferring you directly to Google to leave your review...</p>
+        </div>
+        <div class="loading-spinner"></div>
+        <div class="redirect-manual">
+          <p>If you are not redirected automatically within a few seconds, click below:</p>
+          <a id="direct-google-link" href="#" class="btn btn-primary" target="_blank" rel="noopener">
+            Open Google Review Page →
+          </a>
+        </div>
+      </div>
+
+      <!-- STEP 2B: 1-4 Stars Private Improvement Feedback Form -->
+      <div id="step-feedback" class="gate-card step-hidden">
+        <div class="card-header">
+          <div class="rating-summary-chip">
+            Selected Rating: <span id="user-rating-display">4 Stars</span>
+          </div>
+          <h2 class="card-title">How can we improve your experience?</h2>
+          <p class="card-subtitle">We sincerely appreciate your honesty. Please let our management team know what we can do better so we can make it right.</p>
+        </div>
+
+        <form id="feedback-form" class="feedback-form">
+          <input type="hidden" id="input-rating" name="rating" value="">
+
+          <div class="form-group">
+            <label for="input-message" class="form-label">What could we have done better? <span class="required">*</span></label>
+            <textarea id="input-message" name="message" class="form-control" rows="4" placeholder="Please tell us what went wrong or how we can improve..." required></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="input-name" class="form-label">Your Name (Optional)</label>
+              <input type="text" id="input-name" name="name" class="form-control" placeholder="John Smith">
+            </div>
+
+            <div class="form-group">
+              <label for="input-contact" class="form-label">Phone or Email (Optional)</label>
+              <input type="text" id="input-contact" name="contact" class="form-control" placeholder="john@example.com or (508) 555-0199">
+            </div>
+          </div>
+
+          <!-- PRIMARY EMPHASIZED ACTION BUTTON -->
+          <div class="action-stack">
+            <button type="submit" id="btn-submit-feedback" class="btn btn-primary btn-emphasized">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+              </svg>
+              Send Private Feedback to Gibbs Management
+            </button>
+
+            <!-- SECONDARY LOW-HIERARCHY UNEMPHASIZED LINK -->
+            <div class="unemphasized-wrapper">
+              <a id="btn-bypass-google" href="#" class="link-unemphasized" target="_blank" rel="noopener">
+                I would still like to leave a public review on Google
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- STEP 3: Thank You Confirmation -->
+      <div id="step-thankyou" class="gate-card step-hidden">
+        <div class="card-header text-center">
+          <div class="check-icon-circle">✓</div>
+          <h2 class="card-title">Feedback Received</h2>
+          <p class="card-subtitle">Thank you for helping us improve! Your notes have been sent directly to Gibbs Roofing management.</p>
+        </div>
+        <div class="confirmation-details text-center">
+          <p>If you requested follow-up, our team will reach out to you shortly.</p>
+          <a href="tel:5087481281" class="btn btn-secondary">Call Gibbs Roofing: (508) 748-1281</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>© <span id="year">2026</span> Gibbs Roofing & Remodeling. All rights reserved.</p>
+      <p class="footer-tagline">Roofing & Remodeling Contractor | Founded in 1950 | Factory Trained & Certified</p>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
