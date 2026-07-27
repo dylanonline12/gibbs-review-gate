@@ -1,5 +1,5 @@
 // Interactive Client Script for Gibbs Roofing Review Gate Landing Page
-// Includes Session State Persistence on Page Refresh
+// Includes Session State Persistence & History API Back Button Navigation
 
 document.addEventListener('DOMContentLoaded', () => {
   // Elements
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize Google Review URL from CONFIG
   const googleReviewUrl = (typeof CONFIG !== 'undefined' && CONFIG.googleReviewUrl) 
     ? CONFIG.googleReviewUrl 
-    : "https://www.google.com/search?q=gibbs+roofing+and+remodeling#lrd=0x89e4e5d68ce37a53:0x9f9a291c8092f71d,3,,,,";
+    : "https://search.google.com/local/writereview?placeid=ChIJU3rjjNbl5IkRHfeSgBwpmp8";
 
   if (directGoogleLink) directGoogleLink.href = googleReviewUrl;
   if (btnBypassGoogle) btnBypassGoogle.href = googleReviewUrl;
@@ -30,8 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentRating = 0;
   let isProcessingRating = false;
 
+  // Set initial history state for Step 1
+  if (!history.state) {
+    history.replaceState({ step: 'rating' }, '', window.location.pathname);
+  }
+
   // --------------------------------------------------------------------------
-  // State Persistence Helpers (Save & Restore across refresh)
+  // State Persistence Helpers
   // --------------------------------------------------------------------------
   function saveState(stepName, ratingValue = 0) {
     try {
@@ -51,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const raw = sessionStorage.getItem(STORAGE_KEY);
       if (!raw) return null;
       const data = JSON.parse(raw);
-      // Expire session state if older than 12 hours
       if (Date.now() - data.timestamp > 12 * 60 * 60 * 1000) {
         sessionStorage.removeItem(STORAGE_KEY);
         return null;
@@ -107,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Branching Logic based on Star Selection
-  function handleRatingSelect(rating, isRestoring = false) {
+  function handleRatingSelect(rating, isRestoring = false, skipHistory = false) {
     isProcessingRating = true;
     highlightStars(rating, 'active');
 
@@ -127,6 +131,10 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       // 1 to 4 STARS -> PRIVATE FEEDBACK FORM
       saveState('feedback', rating);
+
+      if (!skipHistory) {
+        history.pushState({ step: 'feedback', rating: rating }, '', '#feedback');
+      }
 
       if (userRatingDisplay) {
         userRatingDisplay.textContent = `${rating} ${rating === 1 ? 'Star' : 'Stars'}`;
@@ -158,6 +166,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --------------------------------------------------------------------------
+  // Handle Browser / Phone Back Button (popstate listener)
+  // --------------------------------------------------------------------------
+  window.addEventListener('popstate', (event) => {
+    const state = event.state;
+
+    if (!state || state.step === 'rating') {
+      // User pressed Back Button to return to Star Rating
+      clearSavedState();
+      currentRating = 0;
+      isProcessingRating = false;
+      highlightStars(0, 'active');
+      showStep(stepRating);
+    } else if (state.step === 'feedback' && state.rating) {
+      currentRating = state.rating;
+      handleRatingSelect(state.rating, true, true);
+    } else if (state.step === 'thankyou') {
+      showStep(stepThankyou);
+    }
+  });
+
+  // --------------------------------------------------------------------------
   // Restore State on Page Reload / Refresh
   // --------------------------------------------------------------------------
   const savedState = getSavedState();
@@ -166,14 +195,14 @@ document.addEventListener('DOMContentLoaded', () => {
       showStep(stepThankyou);
     } else if (savedState.step === 'feedback' && savedState.rating > 0) {
       currentRating = savedState.rating;
-      handleRatingSelect(savedState.rating, true);
+      handleRatingSelect(savedState.rating, true, true);
     } else if (savedState.step === 'redirecting') {
       highlightStars(5, 'active');
       showStep(stepRedirecting);
     }
   }
 
-  // Reset button link for users wanting to submit a new rating
+  // Reset button link
   const resetStateLink = document.getElementById('reset-state-link');
   if (resetStateLink) {
     resetStateLink.addEventListener('click', (e) => {
@@ -183,6 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
       isProcessingRating = false;
       highlightStars(0, 'active');
       showStep(stepRating);
+      history.pushState({ step: 'rating' }, '', window.location.pathname);
     });
   }
 
@@ -242,6 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnSubmitFeedback.disabled = false;
         btnSubmitFeedback.innerHTML = originalBtnText;
         saveState('thankyou', currentRating);
+        history.pushState({ step: 'thankyou' }, '', '#thankyou');
         showStep(stepThankyou);
       }
     });
