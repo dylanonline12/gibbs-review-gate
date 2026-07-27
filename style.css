@@ -1,5 +1,6 @@
 /* ==========================================================================
    Gibbs Roofing & Remodeling - Review Gate Stylesheet
+   Mobile-Optimized & Production Ready
    ========================================================================== */
 
 :root {
@@ -33,6 +34,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -50,6 +52,10 @@ body {
   max-width: 900px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+.text-center {
+  text-align: center;
 }
 
 /* ==========================================================================
@@ -79,6 +85,7 @@ body {
   font-weight: 700;
   color: #FFFFFF;
   letter-spacing: 0.3px;
+  font-size: 0.85rem;
 }
 
 .phone-link {
@@ -88,7 +95,6 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-
   transition: opacity 0.2s;
 }
 
@@ -173,11 +179,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 50px 20px;
+  padding: 40px 20px;
 }
 
 .card-container {
-  max-width: 650px;
+  max-width: 620px;
+  width: 100%;
 }
 
 .gate-card {
@@ -195,13 +202,13 @@ body {
 
 .step-active {
   display: block;
-  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -210,8 +217,7 @@ body {
 }
 
 .card-header {
-  margin-bottom: 30px;
-  text-align: center;
+  margin-bottom: 24px;
 }
 
 .step-pill {
@@ -228,15 +234,15 @@ body {
 }
 
 .card-title {
-  font-size: 1.75rem;
+  font-size: 1.7rem;
   font-weight: 800;
   color: var(--color-navy-dark);
-  line-height: 1.25;
-  margin-bottom: 10px;
+  line-height: 1.3;
+  margin-bottom: 8px;
 }
 
 .card-subtitle {
-  font-size: 1rem;
+  font-size: 0.98rem;
   color: var(--color-text-muted);
 }
 
@@ -247,8 +253,10 @@ body {
 .star-rating-widget {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  margin: 30px 0 10px;
+  align-items: center;
+  gap: 8px;
+  margin: 28px 0 10px;
+  touch-action: manipulation;
 }
 
 .star-btn {
@@ -258,21 +266,24 @@ body {
   color: #CBD5E1;
   cursor: pointer;
   transition: transform 0.15s ease, color 0.15s ease;
-  padding: 0 4px;
+  padding: 4px 6px;
   user-select: none;
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .star-btn:hover,
 .star-btn:focus {
-  transform: scale(1.2);
+  transform: scale(1.18);
   outline: none;
 }
 
 .star-btn.active,
 .star-btn.hover-active {
   color: var(--color-gold);
-  text-shadow: 0 2px 10px rgba(245, 158, 11, 0.4);
+  text-shadow: 0 2px 12px rgba(245, 158, 11, 0.45);
 }
 
 .rating-labels {
@@ -282,7 +293,7 @@ body {
   color: var(--color-text-light);
   font-weight: 600;
   padding: 0 10px;
-  margin-top: 5px;
+  margin-top: 4px;
 }
 
 /* ==========================================================================
@@ -295,13 +306,13 @@ body {
 }
 
 .loading-spinner {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border: 4px solid #E2E8F0;
   border-top-color: var(--color-brand-blue);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
-  margin: 30px auto;
+  margin: 24px auto;
 }
 
 @keyframes spin {
@@ -309,8 +320,7 @@ body {
 }
 
 .redirect-manual {
-  text-align: center;
-  margin-top: 20px;
+  margin-top: 16px;
   color: var(--color-text-muted);
   font-size: 0.9rem;
 }
@@ -333,7 +343,7 @@ body {
 .feedback-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
 .form-group {
@@ -346,12 +356,6 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-}
-
-@media (max-width: 550px) {
-  .form-row {
-    grid-template-columns: 1fr;
-  }
 }
 
 .form-label {
@@ -367,7 +371,7 @@ body {
 .form-control {
   width: 100%;
   padding: 12px 16px;
-  font-size: 0.95rem;
+  font-size: 16px; /* Prevents auto-zoom on iOS Safari */
   font-family: inherit;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -403,6 +407,7 @@ body {
   cursor: pointer;
   text-decoration: none;
   transition: all 0.2s ease;
+  text-align: center;
 }
 
 /* EMPHASIZED PRIMARY BUTTON (Solid Roof Blue, Prominent Shadow, Large Target) */
@@ -429,19 +434,29 @@ body {
   height: 20px;
 }
 
+/* PERFECTLY CENTERED BUTTON WRAPPER */
+.btn-center-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 18px;
+}
+
 .btn-secondary {
   background-color: var(--color-navy-dark);
   color: #FFFFFF;
-  margin-top: 15px;
+  padding: 14px 28px;
+  box-shadow: var(--shadow-md);
 }
 
 .btn-secondary:hover {
   background-color: var(--color-navy-header);
+  transform: translateY(-1px);
 }
 
-/* UNEMPHASIZED SECONDARY LINK (Muted text style, no fill, zero shadow, low contrast) */
+/* UNEMPHASIZED SECONDARY LINK */
 .unemphasized-wrapper {
-  text-align: center;
   margin-top: 4px;
 }
 
@@ -452,6 +467,7 @@ body {
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: color 0.2s ease;
+  display: inline-block;
 }
 
 .link-unemphasized:hover {
@@ -463,8 +479,8 @@ body {
    ========================================================================== */
 
 .check-icon-circle {
-  width: 70px;
-  height: 70px;
+  width: 66px;
+  height: 66px;
   background-color: #D1FAE5;
   color: var(--color-success);
   font-size: 2.2rem;
@@ -473,11 +489,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 20px;
+  margin: 0 auto 16px;
 }
 
 .confirmation-details {
-  margin-top: 20px;
+  margin-top: 16px;
+}
+
+.confirmation-subtext {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
 }
 
 /* ==========================================================================
@@ -487,7 +508,7 @@ body {
 .site-footer {
   background-color: var(--color-navy-dark);
   color: #94A3B8;
-  padding: 25px 0;
+  padding: 24px 0;
   text-align: center;
   font-size: 0.85rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -502,4 +523,90 @@ body {
 .footer-tagline {
   color: #64748B;
   font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   Mobile Responsive Adjustments
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .top-announcement {
+    padding: 8px 0;
+  }
+  
+  .announcement-content {
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .brand-navbar {
+    padding: 14px 0;
+  }
+
+  .navbar-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .brand-identity {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .brand-logo {
+    max-height: 48px;
+  }
+
+  .rating-badge {
+    text-align: center;
+  }
+
+  .review-gate-section {
+    padding: 24px 14px;
+  }
+
+  .gate-card {
+    padding: 26px 18px;
+    border-radius: 12px;
+  }
+
+  .card-title {
+    font-size: 1.4rem;
+  }
+
+  .card-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .star-btn {
+    font-size: 2.7rem;
+    padding: 2px 4px;
+  }
+
+  .star-rating-widget {
+    gap: 4px;
+    margin: 20px 0 8px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 0.95rem;
+  }
+
+  .btn-emphasized {
+    font-size: 0.95rem;
+  }
+
+  .btn-secondary {
+    width: 100%;
+  }
 }

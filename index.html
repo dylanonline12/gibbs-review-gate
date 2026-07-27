@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Rate Your Experience | Gibbs Roofing & Remodeling</title>
 
   <!-- OpenGraph Metadata for Rich SMS & Social Links -->
@@ -57,7 +57,7 @@
 
       <!-- STEP 1: Star Rating Prompt -->
       <div id="step-rating" class="gate-card step-active">
-        <div class="card-header">
+        <div class="card-header text-center">
           <span class="step-pill">Customer Feedback</span>
           <h1 class="card-title">How would you rate your experience?</h1>
           <p class="card-subtitle">Your satisfaction is our top priority at Gibbs Roofing & Remodeling. Please tap a star rating below.</p>
@@ -73,7 +73,7 @@
         </div>
         
         <div class="rating-labels">
-          <span>Poor</span>
+          <span>Needs Improvement</span>
           <span>Excellent</span>
         </div>
       </div>
@@ -86,17 +86,19 @@
           <p class="card-subtitle">We are transferring you directly to Google to leave your review...</p>
         </div>
         <div class="loading-spinner"></div>
-        <div class="redirect-manual">
+        <div class="redirect-manual text-center">
           <p>If you are not redirected automatically within a few seconds, click below:</p>
-          <a id="direct-google-link" href="#" class="btn btn-primary" target="_blank" rel="noopener">
-            Open Google Review Page →
-          </a>
+          <div class="btn-center-wrapper">
+            <a id="direct-google-link" href="#" class="btn btn-primary btn-emphasized" target="_blank" rel="noopener">
+              Open Google Review Page →
+            </a>
+          </div>
         </div>
       </div>
 
       <!-- STEP 2B: 1-4 Stars Private Improvement Feedback Form -->
       <div id="step-feedback" class="gate-card step-hidden">
-        <div class="card-header">
+        <div class="card-header text-center">
           <div class="rating-summary-chip">
             Selected Rating: <span id="user-rating-display">4 Stars</span>
           </div>
@@ -134,7 +136,7 @@
             </button>
 
             <!-- SECONDARY LOW-HIERARCHY UNEMPHASIZED LINK -->
-            <div class="unemphasized-wrapper">
+            <div class="unemphasized-wrapper text-center">
               <a id="btn-bypass-google" href="#" class="link-unemphasized" target="_blank" rel="noopener">
                 I would still like to leave a public review on Google
               </a>
@@ -151,8 +153,12 @@
           <p class="card-subtitle">Thank you for helping us improve! Your notes have been sent directly to Gibbs Roofing management.</p>
         </div>
         <div class="confirmation-details text-center">
-          <p>If you requested follow-up, our team will reach out to you shortly.</p>
-          <a href="tel:5087481281" class="btn btn-secondary">Call Gibbs Roofing: (508) 748-1281</a>
+          <p class="confirmation-subtext">If you requested follow-up, our team will reach out to you shortly.</p>
+          
+          <!-- CENTERED BUTTON WRAPPER -->
+          <div class="btn-center-wrapper">
+            <a href="tel:5087481281" class="btn btn-secondary">Call Gibbs Roofing: (508) 748-1281</a>
+          </div>
         </div>
       </div>
 

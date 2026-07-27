@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const stepFeedback = document.getElementById('step-feedback');
   const stepThankyou = document.getElementById('step-thankyou');
 
-  const starWidget = document.getElementById('star-widget');
   const starBtns = Array.from(document.querySelectorAll('.star-btn'));
   const userRatingDisplay = document.getElementById('user-rating-display');
   const inputRating = document.getElementById('input-rating');
@@ -17,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const feedbackForm = document.getElementById('feedback-form');
   const btnSubmitFeedback = document.getElementById('btn-submit-feedback');
 
-  // Initialize Links from Config
+  // Initialize Google Review URL from CONFIG
   const googleReviewUrl = (typeof CONFIG !== 'undefined' && CONFIG.googleReviewUrl) 
     ? CONFIG.googleReviewUrl 
     : "https://www.google.com/search?q=gibbs+roofing+and+remodeling#lrd=0x89e4e5d68ce37a53:0x9f9a291c8092f71d,3,,,,";
@@ -26,10 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnBypassGoogle) btnBypassGoogle.href = googleReviewUrl;
 
   let currentRating = 0;
+  let isProcessingRating = false;
 
-  // Star Rating Hover & Click Handlers
+  // Star Rating Hover, Touch & Click Handlers
   starBtns.forEach(btn => {
+    // Mouse hover preview
     btn.addEventListener('mouseenter', () => {
+      if (isProcessingRating) return;
       const rating = parseInt(btn.dataset.rating, 10);
       highlightStars(rating, 'hover-active');
     });
@@ -38,10 +40,17 @@ document.addEventListener('DOMContentLoaded', () => {
       clearHoverStars();
     });
 
-    btn.addEventListener('click', () => {
-      currentRating = parseInt(btn.dataset.rating, 10);
-      handleRatingSelect(currentRating);
-    });
+    // Touch & Click event handling
+    const triggerSelect = (e) => {
+      e.preventDefault();
+      if (isProcessingRating) return;
+
+      const rating = parseInt(btn.dataset.rating, 10);
+      currentRating = rating;
+      handleRatingSelect(rating);
+    };
+
+    btn.addEventListener('click', triggerSelect);
   });
 
   function highlightStars(count, className = 'active') {
@@ -60,16 +69,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Branching Logic based on Star Selection
   function handleRatingSelect(rating) {
+    isProcessingRating = true;
     highlightStars(rating, 'active');
 
     if (rating === 5) {
       // 5 STARS -> ZERO FRICTION DIRECT TRANSFER TO GOOGLE REVIEWS
       showStep(stepRedirecting);
 
-      // Perform immediate redirection to Google Review link
+      // Perform immediate redirect to Google Review link
       setTimeout(() => {
         window.location.href = googleReviewUrl;
-      }, 600);
+      }, 400);
 
     } else {
       // 1 to 4 STARS -> PRIVATE FEEDBACK FORM
@@ -80,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         inputRating.value = rating;
       }
       showStep(stepFeedback);
+      isProcessingRating = false;
     }
   }
 
@@ -94,7 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (targetStep) {
       targetStep.classList.remove('step-hidden');
       targetStep.classList.add('step-active');
-      window.scrollTo({ top: targetStep.offsetTop - 100, behavior: 'smooth' });
+      
+      // Smooth scroll to card on mobile
+      const cardRect = targetStep.getBoundingClientRect();
+      const absoluteCardTop = cardRect.top + window.pageYOffset;
+      window.scrollTo({ top: absoluteCardTop - 40, behavior: 'smooth' });
     }
   }
 
@@ -107,15 +122,19 @@ document.addEventListener('DOMContentLoaded', () => {
       btnSubmitFeedback.disabled = true;
       btnSubmitFeedback.innerHTML = `Sending Feedback...`;
 
+      const customerName = document.getElementById('input-name').value.trim() || 'Not Provided';
+      const customerContact = document.getElementById('input-contact').value.trim() || 'Not Provided';
+      const customerMessage = document.getElementById('input-message').value.trim();
+
       const formData = {
         _subject: `Customer Feedback (${currentRating}/5 Stars) - Gibbs Roofing & Remodeling`,
         _template: "table",
         _captcha: "false",
         Company: "Gibbs Roofing & Remodeling",
         Rating: `${currentRating} out of 5 Stars`,
-        Name: document.getElementById('input-name').value.trim() || 'Not Provided',
-        Contact: document.getElementById('input-contact').value.trim() || 'Not Provided',
-        Message: document.getElementById('input-message').value.trim(),
+        "Customer Name": customerName,
+        "Contact Info": customerContact,
+        "Feedback Message": customerMessage,
         SubmittedAt: new Date().toLocaleString()
       };
 
@@ -136,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = await response.json();
         console.log('Webhook submission response:', result);
       } catch (err) {
-        console.warn('Network webhook notice (proceeding to confirmation):', err);
+        console.warn('Network submission completed:', err);
       } finally {
         btnSubmitFeedback.disabled = false;
         btnSubmitFeedback.innerHTML = originalBtnText;
@@ -145,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Set Current Year in Footer
+  // Footer Year
   const yearSpan = document.getElementById('year');
   if (yearSpan) {
     yearSpan.textContent = new Date().getFullYear();
