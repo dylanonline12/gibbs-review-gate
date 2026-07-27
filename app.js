@@ -1,4 +1,5 @@
 // Interactive Client Script for Gibbs Roofing Review Gate Landing Page
+// Includes Session State Persistence on Page Refresh
 
 document.addEventListener('DOMContentLoaded', () => {
   // Elements
@@ -16,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const feedbackForm = document.getElementById('feedback-form');
   const btnSubmitFeedback = document.getElementById('btn-submit-feedback');
 
+  const STORAGE_KEY = 'gibbs_review_gate_state';
+
   // Initialize Google Review URL from CONFIG
   const googleReviewUrl = (typeof CONFIG !== 'undefined' && CONFIG.googleReviewUrl) 
     ? CONFIG.googleReviewUrl 
@@ -27,9 +30,48 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentRating = 0;
   let isProcessingRating = false;
 
-  // Star Rating Hover, Touch & Click Handlers
+  // --------------------------------------------------------------------------
+  // State Persistence Helpers (Save & Restore across refresh)
+  // --------------------------------------------------------------------------
+  function saveState(stepName, ratingValue = 0) {
+    try {
+      const stateData = {
+        step: stepName,
+        rating: ratingValue,
+        timestamp: Date.now()
+      };
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(stateData));
+    } catch (e) {
+      console.warn('Could not save session state:', e);
+    }
+  }
+
+  function getSavedState() {
+    try {
+      const raw = sessionStorage.getItem(STORAGE_KEY);
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      // Expire session state if older than 12 hours
+      if (Date.now() - data.timestamp > 12 * 60 * 60 * 1000) {
+        sessionStorage.removeItem(STORAGE_KEY);
+        return null;
+      }
+      return data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function clearSavedState() {
+    try {
+      sessionStorage.removeItem(STORAGE_KEY);
+    } catch (e) {}
+  }
+
+  // --------------------------------------------------------------------------
+  // Star Rating Interaction
+  // --------------------------------------------------------------------------
   starBtns.forEach(btn => {
-    // Mouse hover preview
     btn.addEventListener('mouseenter', () => {
       if (isProcessingRating) return;
       const rating = parseInt(btn.dataset.rating, 10);
@@ -40,17 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
       clearHoverStars();
     });
 
-    // Touch & Click event handling
-    const triggerSelect = (e) => {
+    btn.addEventListener('click', (e) => {
       e.preventDefault();
       if (isProcessingRating) return;
 
       const rating = parseInt(btn.dataset.rating, 10);
       currentRating = rating;
       handleRatingSelect(rating);
-    };
-
-    btn.addEventListener('click', triggerSelect);
+    });
   });
 
   function highlightStars(count, className = 'active') {
@@ -68,21 +107,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Branching Logic based on Star Selection
-  function handleRatingSelect(rating) {
+  function handleRatingSelect(rating, isRestoring = false) {
     isProcessingRating = true;
     highlightStars(rating, 'active');
 
     if (rating === 5) {
-      // 5 STARS -> ZERO FRICTION DIRECT TRANSFER TO GOOGLE REVIEWS
+      // 5 STARS -> DIRECT GOOGLE TRANSFER
+      saveState('redirecting', 5);
       showStep(stepRedirecting);
 
-      // Perform immediate redirect to Google Review link
-      setTimeout(() => {
-        window.location.href = googleReviewUrl;
-      }, 400);
+      if (!isRestoring) {
+        setTimeout(() => {
+          window.location.href = googleReviewUrl;
+        }, 400);
+      } else {
+        isProcessingRating = false;
+      }
 
     } else {
       // 1 to 4 STARS -> PRIVATE FEEDBACK FORM
+      saveState('feedback', rating);
+
       if (userRatingDisplay) {
         userRatingDisplay.textContent = `${rating} ${rating === 1 ? 'Star' : 'Stars'}`;
       }
@@ -106,14 +151,44 @@ document.addEventListener('DOMContentLoaded', () => {
       targetStep.classList.remove('step-hidden');
       targetStep.classList.add('step-active');
       
-      // Smooth scroll to card on mobile
       const cardRect = targetStep.getBoundingClientRect();
       const absoluteCardTop = cardRect.top + window.pageYOffset;
       window.scrollTo({ top: absoluteCardTop - 40, behavior: 'smooth' });
     }
   }
 
+  // --------------------------------------------------------------------------
+  // Restore State on Page Reload / Refresh
+  // --------------------------------------------------------------------------
+  const savedState = getSavedState();
+  if (savedState) {
+    if (savedState.step === 'thankyou') {
+      showStep(stepThankyou);
+    } else if (savedState.step === 'feedback' && savedState.rating > 0) {
+      currentRating = savedState.rating;
+      handleRatingSelect(savedState.rating, true);
+    } else if (savedState.step === 'redirecting') {
+      highlightStars(5, 'active');
+      showStep(stepRedirecting);
+    }
+  }
+
+  // Reset button link for users wanting to submit a new rating
+  const resetStateLink = document.getElementById('reset-state-link');
+  if (resetStateLink) {
+    resetStateLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      clearSavedState();
+      currentRating = 0;
+      isProcessingRating = false;
+      highlightStars(0, 'active');
+      showStep(stepRating);
+    });
+  }
+
+  // --------------------------------------------------------------------------
   // Form Submission Handling (Email Webhook Dispatch)
+  // --------------------------------------------------------------------------
   if (feedbackForm) {
     feedbackForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -159,6 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } finally {
         btnSubmitFeedback.disabled = false;
         btnSubmitFeedback.innerHTML = originalBtnText;
+        saveState('thankyou', currentRating);
         showStep(stepThankyou);
       }
     });
