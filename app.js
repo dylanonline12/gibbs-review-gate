@@ -193,6 +193,13 @@ document.addEventListener('DOMContentLoaded', () => {
     feedbackForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      // Honeypot anti-bot validation
+      const honeypotVal = document.getElementById('input-honey')?.value;
+      if (honeypotVal) {
+        showStep(stepThankyou);
+        return;
+      }
+
       const originalBtnText = btnSubmitFeedback.innerHTML;
       btnSubmitFeedback.disabled = true;
       btnSubmitFeedback.innerHTML = `Sending Feedback...`;

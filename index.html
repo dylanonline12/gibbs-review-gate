@@ -107,6 +107,8 @@
 
         <form id="feedback-form" class="feedback-form">
           <input type="hidden" id="input-rating" name="rating" value="">
+          <!-- Honeypot Bot Trap (Hidden from human users) -->
+          <input type="text" id="input-honey" name="_honey" style="display:none !important;" tabindex="-1" autocomplete="off">
 
           <div class="form-group">
             <label for="input-message" class="form-label">What could we have done better? <span class="required">*</span></label>
