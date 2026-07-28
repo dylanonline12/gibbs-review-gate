@@ -1,6 +1,6 @@
 /* ==========================================================================
    Gibbs Roofing & Remodeling - Review Gate Stylesheet
-   Clean White Centered Header & Premium Mobile Layout
+   Rich Navy Header, Emblem Badge & Mobile Optimized
    ========================================================================== */
 
 :root {
@@ -11,7 +11,7 @@
   --color-gold: #F59E0B;
   --color-gold-hover: #D97706;
   
-  --color-bg-page: #F8FAFC;
+  --color-bg-page: #F1F5F9;
   --color-card-bg: #FFFFFF;
   
   --color-text-main: #0F172A;
@@ -23,7 +23,7 @@
 
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 10px 25px -5px rgba(15, 30, 54, 0.08), 0 8px 10px -6px rgba(15, 30, 54, 0.03);
+  --shadow-lg: 0 12px 30px -5px rgba(15, 30, 54, 0.12), 0 8px 10px -6px rgba(15, 30, 54, 0.04);
 
   --radius-lg: 16px;
   --radius-md: 10px;
@@ -39,7 +39,7 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: var(--color-bg-page);
+  background: linear-gradient(180deg, #F1F5F9 0%, #E2E8F0 100%);
   color: var(--color-text-main);
   line-height: 1.6;
   min-height: 100vh;
@@ -65,7 +65,7 @@ body {
 .top-announcement {
   background-color: var(--color-navy-dark);
   color: #FFFFFF;
-  padding: 8px 0;
+  padding: 10px 0;
   font-size: 0.85rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -74,17 +74,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.location-tag-top {
-  color: #CBD5E1;
-  font-weight: 500;
-}
-
-.bullet-divider {
-  color: #64748B;
+  text-align: center;
 }
 
 .phone-link {
@@ -93,12 +83,13 @@ body {
   font-weight: 700;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   transition: opacity 0.2s;
+  letter-spacing: 0.3px;
 }
 
 .phone-link:hover {
-  opacity: 0.85;
+  opacity: 0.88;
 }
 
 .phone-icon {
@@ -107,15 +98,15 @@ body {
 }
 
 /* ==========================================================================
-   Brand Navbar (Clean White Background - Seamless Logo Integration)
+   Brand Navbar (Deep Navy Background with Elevated White Emblem Badge)
    ========================================================================== */
 
 .brand-navbar {
-  background-color: #FFFFFF;
-  color: var(--color-navy-dark);
-  padding: 24px 0 20px;
-  border-bottom: 1px solid #E2E8F0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  background-color: var(--color-navy-header);
+  color: #FFFFFF;
+  padding: 28px 0 24px;
+  box-shadow: var(--shadow-md);
+  border-bottom: 3px solid var(--color-brand-blue);
 }
 
 .navbar-content-centered {
@@ -124,23 +115,35 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 14px;
+  gap: 12px;
 }
 
-.brand-identity-centered {
+/* Elevated White Logo Emblem Badge (Prevents pasted look) */
+.logo-emblem-badge {
+  background-color: #FFFFFF;
+  padding: 14px 28px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.2s ease;
 }
 
-.brand-logo-centered {
-  max-height: 80px;
+.brand-logo-img {
+  max-height: 75px;
   width: auto;
   object-fit: contain;
-  margin: 0 auto;
   display: block;
+}
+
+/* Location Tag Directly Below Logo */
+.location-tag-centered {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #E2E8F0;
+  letter-spacing: 0.3px;
 }
 
 .rating-badge-centered {
@@ -148,10 +151,11 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background-color: #F8FAFC;
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 6px 18px;
   border-radius: 20px;
-  border: 1px solid #E2E8F0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
 }
 
 .stars-gold {
@@ -163,7 +167,7 @@ body {
 
 .rating-text {
   font-size: 0.85rem;
-  color: var(--color-text-muted);
+  color: #CBD5E1;
   font-weight: 600;
 }
 
@@ -176,7 +180,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  padding: 44px 20px;
 }
 
 .card-container {
@@ -190,6 +194,7 @@ body {
   padding: 40px 36px;
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--color-border);
+  border-top: 5px solid var(--color-brand-blue); /* Roofing Blue Top Accent */
   transition: all 0.3s ease;
 }
 
@@ -530,21 +535,22 @@ body {
   .top-announcement {
     padding: 8px 0;
   }
-  
-  .announcement-content {
-    justify-content: center;
-    text-align: center;
-    flex-direction: row;
-    gap: 8px;
-    font-size: 0.8rem;
-  }
 
   .brand-navbar {
-    padding: 18px 0;
+    padding: 20px 0 18px;
   }
 
-  .brand-logo-centered {
-    max-height: 60px;
+  .logo-emblem-badge {
+    padding: 10px 20px;
+    border-radius: 12px;
+  }
+
+  .brand-logo-img {
+    max-height: 55px;
+  }
+
+  .location-tag-centered {
+    font-size: 0.85rem;
   }
 
   .review-gate-section {
