@@ -1,6 +1,6 @@
 /* ==========================================================================
    Gibbs Roofing & Remodeling - Review Gate Stylesheet
-   Mobile-Optimized & Production Ready
+   Clean White Centered Header & Premium Mobile Layout
    ========================================================================== */
 
 :root {
@@ -11,7 +11,7 @@
   --color-gold: #F59E0B;
   --color-gold-hover: #D97706;
   
-  --color-bg-page: #F1F5F9;
+  --color-bg-page: #F8FAFC;
   --color-card-bg: #FFFFFF;
   
   --color-text-main: #0F172A;
@@ -22,8 +22,8 @@
   --color-success: #10B981;
 
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 25px -5px rgba(15, 30, 54, 0.1), 0 8px 10px -6px rgba(15, 30, 54, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 25px -5px rgba(15, 30, 54, 0.08), 0 8px 10px -6px rgba(15, 30, 54, 0.03);
 
   --radius-lg: 16px;
   --radius-md: 10px;
@@ -59,15 +59,15 @@ body {
 }
 
 /* ==========================================================================
-   Top Announcement Header
+   Top Announcement Header (Deep Navy Accent Bar)
    ========================================================================== */
 
 .top-announcement {
   background-color: var(--color-navy-dark);
   color: #FFFFFF;
-  padding: 10px 0;
-  font-size: 0.9rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .announcement-content {
@@ -75,17 +75,16 @@ body {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
 }
 
-.promo-badge {
-  background: rgba(255, 255, 255, 0.15);
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-weight: 700;
-  color: #FFFFFF;
-  letter-spacing: 0.3px;
-  font-size: 0.85rem;
+.location-tag-top {
+  color: #CBD5E1;
+  font-weight: 500;
+}
+
+.bullet-divider {
+  color: #64748B;
 }
 
 .phone-link {
@@ -103,71 +102,69 @@ body {
 }
 
 .phone-icon {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
 }
 
 /* ==========================================================================
-   Brand Navbar
+   Brand Navbar (Clean White Background - Seamless Logo Integration)
    ========================================================================== */
 
 .brand-navbar {
-  background-color: var(--color-navy-header);
-  color: #FFFFFF;
-  padding: 18px 0;
-  box-shadow: var(--shadow-md);
+  background-color: #FFFFFF;
+  color: var(--color-navy-dark);
+  padding: 24px 0 20px;
+  border-bottom: 1px solid #E2E8F0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
 }
 
-.navbar-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.brand-identity {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.brand-logo {
-  max-height: 55px;
-  width: auto;
-  object-fit: contain;
-}
-
-.brand-text {
+.navbar-content-centered {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 14px;
 }
 
-.slogan {
-  font-style: italic;
-  font-weight: 600;
-  font-size: 1rem;
-  color: #E2E8F0;
+.brand-identity-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-.location-tag {
-  font-size: 0.8rem;
-  color: #94A3B8;
+.brand-logo-centered {
+  max-height: 80px;
+  width: auto;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
 }
 
-.rating-badge {
-  text-align: right;
+.rating-badge-centered {
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #F8FAFC;
+  padding: 6px 18px;
+  border-radius: 20px;
+  border: 1px solid #E2E8F0;
 }
 
 .stars-gold {
   color: var(--color-gold);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   letter-spacing: 2px;
+  line-height: 1;
 }
 
 .rating-text {
   font-size: 0.85rem;
-  color: #CBD5E1;
+  color: var(--color-text-muted);
+  font-weight: 600;
 }
 
 /* ==========================================================================
@@ -537,31 +534,17 @@ body {
   .announcement-content {
     justify-content: center;
     text-align: center;
-    flex-direction: column;
-    gap: 6px;
+    flex-direction: row;
+    gap: 8px;
+    font-size: 0.8rem;
   }
 
   .brand-navbar {
-    padding: 14px 0;
+    padding: 18px 0;
   }
 
-  .navbar-content {
-    flex-direction: column;
-    text-align: center;
-    gap: 12px;
-  }
-
-  .brand-identity {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .brand-logo {
-    max-height: 48px;
-  }
-
-  .rating-badge {
-    text-align: center;
+  .brand-logo-centered {
+    max-height: 60px;
   }
 
   .review-gate-section {
